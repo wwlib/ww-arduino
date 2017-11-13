@@ -72,7 +72,12 @@ long WwLaunchClock::currentSecond(void)
       return _targetTime / 1000;
     } else {
       if (_mode == MODE_COUNTDOWN) {
-        return time() / 1000 + 1;
+        long currentSecond = time() / 1000 + 1;
+        long startSecond = _startTime / 1000;
+        if (currentSecond > startSecond) {
+          currentSecond = startSecond;
+        }
+        return currentSecond;
       } else {
         return time() / 1000;
       }
